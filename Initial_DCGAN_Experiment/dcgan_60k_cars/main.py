@@ -92,23 +92,23 @@ def create_discriminator():
 
     return netD
 
-def labels_train_disc(netD, netG, images, img_labels, criterion, real_label, fake_label, noise, optimizerD, b_size):
+def labels_train_disc(netD, netG, images, criterion, real_label, fake_label, noise, optimizerD, b_size):
     netD.zero_grad()
     label = torch.full((b_size,), real_label, dtype=torch.float, device=device)
     
     # Forward pass real batch through D
-    output = netD((images, img_labels)).view(-1)
+    output = netD(images).view(-1)
     
     # Calculate gradients for D in backward pass
     errD_real = criterion(output, label)
     errD_real.backward()
     D_x = output.mean().item()
 
-    fake = netG((noise, img_labels))
+    fake = netG(noise)
     label.fill_(fake_label)
 
     # Classify all fake batch with D
-    output = netD((fake, img_labels)).view(-1)
+    output = netD(fake).view(-1)
 
     # Calculate the gradients for all-fake batch, accumulated (summed) with previous gradients
     errD_fake = criterion(output, label)
@@ -124,16 +124,16 @@ def labels_train_disc(netD, netG, images, img_labels, criterion, real_label, fak
     return errD, D_x, D_G_z1
 
 
-def labels_train_gen(netD, netG, latent, img_labels, real_label, criterion, optimizerG, b_size):
+def labels_train_gen(netD, netG, latent, real_label, criterion, optimizerG, b_size):
     netG.zero_grad()
 
     label = torch.full((b_size,), real_label, dtype=torch.float, device=device)
 
     # Generate fake images
-    fake = netG((latent, img_labels))
+    fake = netG(latent)
 
     # Pass fake images to the discriminator
-    output = netD((fake, img_labels)).view(-1)
+    output = netD(fake).view(-1)
 
     # Calculate G's loss based on this output
     errG = criterion(output, label)
@@ -148,7 +148,7 @@ def labels_train_gen(netD, netG, latent, img_labels, real_label, criterion, opti
     return errG, D_G_z2
     
 
-def train(netD, netG, criterion, fake_label, real_label, optimizerD, optimizerG, fixed_noise, fixed_label):
+def train(netD, netG, criterion, fake_label, real_label, optimizerD, optimizerG, fixed_noise):
     print("Starting Training Loop...")
     # Lists to keep track of progress
     img_list = []
@@ -156,14 +156,13 @@ def train(netD, netG, criterion, fake_label, real_label, optimizerD, optimizerG,
     D_losses = []
 
     for epoch in range(num_epochs):
-        for i, (data, labels) in enumerate(dataloader):
-            real_cpu = data.to(device)
+        for i, data in enumerate(dataloader):
+            real_cpu = data[0].to(device)
             b_size = real_cpu.size(0)
-            labels = labels.to(device)
 
             noise = torch.randn(b_size, nz, 1, 1, device=device)
-            errD, D_x, D_G_z1 = labels_train_disc(netD, netG, real_cpu, labels, criterion, real_label, fake_label, noise, optimizerD, b_size)
-            errG, D_G_z2 = labels_train_gen(netD, netG, noise, labels, real_label, criterion, optimizerG, b_size)
+            errD, D_x, D_G_z1 = labels_train_disc(netD, netG, real_cpu, criterion, real_label, fake_label, noise, optimizerD, b_size)
+            errG, D_G_z2 = labels_train_gen(netD, netG, noise, real_label, criterion, optimizerG, b_size)
             
             # Save Losses for plotting later
             G_losses.append(errG.item())
@@ -172,7 +171,7 @@ def train(netD, netG, criterion, fake_label, real_label, optimizerD, optimizerG,
             # Check how the generator is doing by saving G's output on fixed_noise
             if (i == len(dataloader)-1):
                 with torch.no_grad():
-                    fake = netG((fixed_noise, fixed_label)).detach().cpu()
+                    fake = netG(fixed_noise).detach().cpu()
                 img_list.append(vutils.make_grid(fake, padding=2, normalize=True))
 
         print('[%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tD(x): %.4f\tD(G(z))_D: %.4f\tD(G(z))_G: %.4f'
@@ -196,9 +195,6 @@ def main():
 
     fixed_noise = torch.randn(64, nz, 1, 1, device=device)
     
-    # Generate fixed labels for cGAN
-    fixed_label = torch.tensor([[0],[0],[0],[0],[0],[0],[0],[0],[1],[1],[1],[1],[1],[1],[1],[1],[2],[2],[2],[2],[2],[2],[2],[2],[3],[3],[3],[3],[3],[3],[3],[3],[4],[4],[4],[4],[4],[4],[4],[4],[5],[5],[5],[5],[5],[5],[5],[5],[6],[6],[6],[6],[6],[6],[6],[6],[7],[7],[7],[7],[7],[7],[7],[7]], device=device)
- 
     # Establish convention for real and fake labels during training
     real_label = 1.
     fake_label = 0.
@@ -207,7 +203,7 @@ def main():
     optimizerD = optim.Adam(netD.parameters(), lr=lr, betas=beta_params)
     optimizerG = optim.Adam(netG.parameters(), lr=lr, betas=beta_params)
 
-    G_losses, D_losses = train(netD, netG, criterion, fake_label, real_label, optimizerD, optimizerG, fixed_noise, fixed_label)
+    G_losses, D_losses = train(netD, netG, criterion, fake_label, real_label, optimizerD, optimizerG, fixed_noise)
     dataIO.create_loss_image(D_losses, G_losses)
     dataIO.save_cost(G_losses, D_losses, 'losses')
     dataIO.save_models(netD, netG, optimizerD, optimizerG, 'model')

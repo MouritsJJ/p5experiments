@@ -3,7 +3,7 @@ dataroot = '../../car_dataset'
 stats = (0.5,0.5,0.5), (0.5,0.5,0.5)
 
 # Number of workers for dataloader
-workers = 4
+workers = 0
 
 # Batch size during training
 batch_size = 32
@@ -43,10 +43,4 @@ disc_training_times = 1
 gen_training_times = 1
 
 # Training iteration
-training_iteration = 6
-
-# Number of labels
-n_labels = 8
-
-# Embedded dimension
-embedded_dimension = 100
+training_iteration = 1

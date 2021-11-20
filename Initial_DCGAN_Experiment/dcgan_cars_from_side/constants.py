@@ -1,5 +1,5 @@
 # Root directory for dataset
-dataroot = "../car_images_from_side"
+dataroot = "../../512_cars"
 
 # Number of workers for dataloader
 workers = 4

@@ -1,0 +1,3 @@
+# Custom ignores
+__pycache__
+data
