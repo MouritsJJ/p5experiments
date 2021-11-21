@@ -14,13 +14,17 @@ class Generator(nn.Module):
         )
 
         self.latent = nn.Sequential(
-            nn.Linear(nz, 4 * 4 * 512),
+            nn.Linear(nz, 4 * 4 * 1024),
             nn.LeakyReLU(0.2, inplace=True)
         )
 
         self.main = nn.Sequential(
             #input_channels, output_channels, kernel_size, stride, padding
-            nn.ConvTranspose2d(ngf * 8 + 1, ngf * 4, 4, 2, 1, bias=False),
+            nn.ConvTranspose2d(ngf * 16 + 1, ngf * 8, 3, 1, 1, bias=False),
+            nn.BatchNorm2d(ngf * 8),
+            nn.ReLU(True),
+
+            nn.ConvTranspose2d( ngf * 8, ngf * 4, 4, 2, 1, bias=False),
             nn.BatchNorm2d(ngf * 4),
             nn.ReLU(True),
 
@@ -44,7 +48,7 @@ class Generator(nn.Module):
         label_output = label_output.view(-1, 1, 4, 4)
 
         latent_output = self.latent(latent)
-        latent_output = latent_output.view(-1, 512, 4, 4)
+        latent_output = latent_output.view(-1, 1024, 4, 4)
 
         concat = torch.cat((latent_output, label_output), dim=1)
         
@@ -61,7 +65,11 @@ class Discriminator(nn.Module):
         )
 
         self.main = nn.Sequential(
-            nn.Conv2d(nc+1, ndf, 4, 2, 1, bias=False),
+            nn.Conv2d(nc+1, ndf, 3, 1, 1, bias=False),
+            nn.LeakyReLU(0.2, inplace=True),
+
+            nn.Conv2d(ndf, ndf, 4, 2, 1, bias=False),
+            nn.BatchNorm2d(ndf),
             nn.LeakyReLU(0.2, inplace=True),
 
             nn.Conv2d(ndf, ndf * 2, 4, 2, 1, bias=False),
