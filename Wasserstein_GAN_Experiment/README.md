@@ -51,7 +51,7 @@ n_critic = 3\
 clipping range = 0.1
 
 ## Runs training the critic 5 times per iteration
-### nc5_cr0005
+### Model 14 - nc5_cr0005
 n_critic = 5\
 clipping range = 0.005
 
@@ -163,7 +163,7 @@ n_critic = 3\
 clipping range = 0.01\
 learning rate = 0.1
 
-# Special Run - 10nc30
+# Special Run - Model 15 - 10nc30
 ## Model
 Gen: 4x1025, 8x512, 16x256, 32x128, 64x64, 128x32, 128x3
 Disc: 128x4, 64x64, 32x128, 16x256, 8x512, 4x1024, 1x1

@@ -27,7 +27,7 @@ Unrolled steps = 1
 Learning rate = 0.01\
 Unrolled steps = 2
 
-### base_lr0001_k1
+### Base Model - lr0001_k1
 Learning rate = 0.001\
 Unrolled steps = 1
 
@@ -47,7 +47,7 @@ Unrolled steps = 5
 Learning rate = 0.0001\
 Unrolled steps = 1
 
-### base_lr00001_k2
+### Model 13 - base_lr00001_k2
 Learning rate = 0.0001\
 Unrolled steps = 2
 
