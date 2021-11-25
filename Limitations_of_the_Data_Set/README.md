@@ -1,4 +1,15 @@
-# Base Model - Model 1
+# Models
+## Model 1
+Generator: 4x1025, 8x512, 16x256, 32x128, 64x64, 128x32, 128x3\
+Discriminator: 128x4, 32x64, 8x256, 4x512, 1x1
+
+## Model 4
+Gen: 4x1025, 8x512, 16x256, 32x128, 64x64, 128x32,  128x3\
+Disc: 128x4, 32x64, 8x256, 1x1
+
+## Model 5
+Gen: 4x1025, 8x512, 16x256, 32x128, 64x64, 128x32,  128x3\
+Disc: 128x4, 8x256, 4x512, 1x1
 
 # Hyperparameters
 Bias = False\
@@ -15,10 +26,6 @@ number of labels = 8\
 embedded dimension = 100\
 seed = 999\
 epochs = 20
-
-## Dimensions
-Generator: 4x1025, 8x512, 16x256, 32x128, 64x64, 128x32, 128x3\
-Discriminator: 128x4, 32x64, 8x256, 4x512, 1x1
 
 # Properties
 
@@ -60,3 +67,13 @@ SE      | 22964     | 11.802
 SW      | 21159     | 10.874
 West    | 17110     | 8.793
 Total   | 194576    | 100
+
+# Runs
+## ExtraN
+Runs having only `extraN` in the name uses the largest data set.
+
+## ExtraN_sameD
+Runs having the extension `extraN_sameD` uses the data set with the same distribution of the angles but more images than the original data set.
+
+## sameN_sameD
+Runs having the extension `sameN_sameD` uses the new data set but with the same amount of images and the same distribution of angles as the original data set. 
