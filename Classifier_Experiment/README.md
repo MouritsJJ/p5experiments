@@ -72,8 +72,7 @@ Disc: 128x4, 32x64, 8x256, 4x512, 1x1
 Classifier: 128x128x3, 64x64x64, 32x32x128, 16x16x256, 8x8x512, 1x4096, 8
 
 # Runs
-As the e
-xperiment focuses on the quality on the generated images of previous experiments, only a single model is trained and examined.\
+As the experiment focuses on the quality on the generated images of previous experiments, only a single model is trained and examined.\
 It has no changes to the model or hyper parameters. 
 
 ## gen_run
