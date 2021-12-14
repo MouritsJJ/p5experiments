@@ -215,7 +215,7 @@ if __name__ == "__main__":
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
                                             shuffle=True, num_workers=workers, drop_last=True)
 
-    if args['wandb'] is None:
+    if args['wandb'] is not None:
         wandb.init(project='sp7optimisers', entity='p5_synthetic_gan', name='BCEWithLogits witout sigmoid in main')
         config = wandb.config
         config.workers = workers
