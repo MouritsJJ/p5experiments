@@ -110,7 +110,7 @@ def train(classifier, criterion, optimizerC):
             print(f'validation loss: {validation_loss}   best_loss: {best_loss}')
             counter = counter + 1
         
-        if args['wandb'] is None:
+        if args['wandb'] is not None:
             wandb.log({"Validation loss": validation_loss, "validation_accuracy": accuracy, "training loss": loss, "Training accuracy": mean(Acc_total)})
 
         if counter > patience:

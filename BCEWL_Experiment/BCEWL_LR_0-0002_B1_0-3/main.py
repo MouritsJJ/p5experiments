@@ -162,9 +162,9 @@ def train(netD, netG, criterion, fake_label, real_label, optimizerD, optimizerG,
                     fake = netG((fixed_noise, fixed_label)).detach().cpu()
                 last_img = vutils.make_grid(fake, padding=2, normalize=True)
                 #dataIO.save_last_image(f"Step {(epoch)*len(dataloader)+i}", last_img)
-                if args['wandb'] is None:
+                if args['wandb'] is not None:
                     wandb.log({"img": [wandb.Image(last_img, caption=f"Step {(epoch)*len(dataloader)+i}")], "D(x) in Discriminator": D_x, "D(G(z)) in Discriminator": D_G_z1, "D(G(z)) in Generator": D_G_z2, "Generator loss": errG.item(), "Discriminator loss": errD.item()})
-            elif args['wandb'] is None:
+            elif args['wandb'] is not None:
                 wandb.log({"D(x) in Discriminator": D_x, "D(G(z)) in Discriminator": D_G_z1, "D(G(z)) in Generator": D_G_z2, "Generator loss": errG.item(), "Discriminator loss": errD.item()})
 
         print(' ' * 20, end='\r')

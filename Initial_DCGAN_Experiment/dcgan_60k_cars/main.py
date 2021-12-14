@@ -18,7 +18,7 @@ parser = argparse.ArgumentParser(description='P5 - GAN')
 parser.add_argument('-w','--wandb', help='Disables wandb', required=False)
 args = vars(parser.parse_args())
 
-if args['wandb'] is None:
+if args['wandb'] is not None:
     wandb.init(project='gpt3', entity='p5_synthetic_gan')
     config = wandb.config
     config.workers = workers
@@ -178,7 +178,7 @@ def train(netD, netG, criterion, fake_label, real_label, optimizerD, optimizerG,
                 % (epoch+1, num_epochs,
                     errD.item(), errG.item(), D_x, D_G_z1, D_G_z2))
         
-        if args['wandb'] is None:
+        if args['wandb'] is not None:
             wandb.log({"img": [wandb.Image(img_list[-1], caption=f"Epoch {epoch}")], "D_real": D_x, "D_fake": D_G_z1, "D_G_fake": D_G_z2, "G_loss": errG.item(), "D_loss": errD.item()})               
         
         dataIO.save_last_image(f"epoch_{epoch}", img_list[img_list.__len__()-1])
