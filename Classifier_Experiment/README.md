@@ -33,42 +33,49 @@ You are now done and the terminal should print the results.
 # Hyper Parameters
 
 ## Generator
-Bias = False
-Batch size = 128
-image size = 128 px
-nz = 120
-ngf (feature map, gen) = 64
-ndf (feature map, disc) = 64
-beta1 = (0.5, 0.999)
-number of labels = 8
-embedded dimension = 100
-seed = 999
+
+Bias = False\
+Batch size = 128\
+image size = 128 px\
+nz = 120\
+ngf (feature map, gen) = 64\
+ndf (feature map, disc) = 64\
+beta1 = (0.5, 0.999)\
+number of labels = 8\
+embedded dimension = 100\
+seed = 999\
 epochs = 100
 
 ## Classifier
-Bias = False
-Batch size = 64
-image size = 128 px
-nz = 120
-ngf (feature map, gen) = 64
-ndf (feature map, disc) = 64
-beta1 = (0.5, 0.999)
-number of labels = 8
-embedded dimension = 100
-seed = 999
+
+Bias = False\
+Batch size = 64\
+image size = 128 px\
+nz = 120\
+ngf (feature map, gen) = 64\
+ndf (feature map, disc) = 64\
+beta1 = (0.5, 0.999)\
+number of labels = 8\
+embedded dimension = 100\
+seed = 999\
 epochs = 20
 
 # Models
 
 ## Generator Train & Evaluate
-Gen: 4x1025, 8x512, 16x256, 32x128, 64x64, 128x32, 128x3
+
+Gen: 4x1025, 8x512, 16x256, 32x128, 64x64, 128x32, 128x3\
 Disc: 128x4, 32x64, 8x256, 4x512, 1x1
 
 ## Classifier Train & Evaluate
+
 Classifier: 128x128x3, 64x64x64, 32x32x128, 16x16x256, 8x8x512, 1x4096, 8
 
 # Runs
-As the experiment focuses on the quality on the generated images of previous experiments, only a single model is trained and examined.
+As the e
+xperiment focuses on the quality on the generated images of previous experiments, only a single model is trained and examined.\
 It has no changes to the model or hyper parameters. 
 
 ## gen_run
+
+learning rate = 0.001
