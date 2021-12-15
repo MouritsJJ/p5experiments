@@ -108,7 +108,7 @@ class DataIO:
                 'generator': gen.state_dict(),
                 'disc_op': disc_op.state_dict(),
                 'gen_op': gen_op.state_dict()
-            }, f'{self.path}/{file_name}')
+            }, f'../base_model')
 
     def load_models(self, disc, gen, disc_op, gen_op, file_name):
         """

@@ -25,6 +25,10 @@ Gen: 4x1025, 8x512, 16x256, 32x128, 64x64, 128x32, 128x3\
 Disc: 128x4, 32x64, 8x256, 4x512, 1x1
 
 # Runs
+To create the models used for generating images open a terminal, navigate to the `base` folder and run `python main.py`. A model names base_model should be saved in the main folder for the experiment.\
+Hereafter, navigate to the `BCE` folder and run `python main.py`. A model named `BCE_model` should be saved in the main folder for the experiment.
+
+Running the extraction and transition experiments should then be performed by navigation to the respective folder and running the same `python main.py` command.
 
 ## Feature Extraction
 A noise 0-vector with 120 elements is generated and each element is then varied between -10 and 10, while all other elements are kept at zero. Each variation of the noise vector is used as input to both models and the generated images is saved to be analyzed.
