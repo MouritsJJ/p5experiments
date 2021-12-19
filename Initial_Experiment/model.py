@@ -1,3 +1,8 @@
+"""
+    Code heavily inspired by https://github.com/christinakouridi/scratchML/blob/master/GAN/model.py (Accessed 19/12-21)
+    with only small adjustments.
+"""
+
 import imageio
 import matplotlib.pyplot as plt
 import numpy as np
