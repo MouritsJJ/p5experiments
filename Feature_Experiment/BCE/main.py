@@ -1,3 +1,7 @@
+"""
+Code heavily inspired by https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html (Accessed 19/12-2021)
+with only small adjustments
+"""
 import random
 import torch
 from torch.functional import Tensor
