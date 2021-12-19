@@ -1,3 +1,7 @@
+"""
+Code heavily inspired by https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html (Accessed 19/12-2021)
+with only small adjustments
+"""
 dataroot = '../../../../car_dataset_sorted'
 
 stats = (0.5,0.5,0.5), (0.5,0.5,0.5)
