@@ -1,3 +1,8 @@
+"""
+    Code Heavily inspired by https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html (Accessed 19/12-2021)
+    with only small adjustments.
+"""
+
 # Root directory for dataset
 dataroot = "../../512_cars"
 

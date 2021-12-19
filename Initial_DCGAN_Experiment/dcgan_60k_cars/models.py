@@ -1,3 +1,8 @@
+"""
+    Code Heavily inspired by https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html (Accessed 19/12-2021)
+    with only small adjustments.
+"""
+
 from torch._C import device
 import torch.nn as nn
 import torch
