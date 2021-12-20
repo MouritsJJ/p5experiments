@@ -27,6 +27,10 @@ device = torch.device("cuda:0" if (torch.cuda.is_available() and ngpu > 0) else 
 idx_to_class = index_to_class(dataset.class_to_idx)
 dataIO = DataIO('data', training_iteration)
 
+"""
+Function heavily inspired by https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html (Accessed 19/12-2021)
+with only small adjustments
+"""
 def create_classifier():
     # Create the Discriminator
     classifier = Classifier(ngpu).to(device)

@@ -23,6 +23,10 @@ device = torch.device("cuda:0" if (torch.cuda.is_available() and ngpu > 0) else 
 idx_to_class = []
 
 # custom weights initialization called on netG and netD
+"""
+Function heavily inspired by https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html (Accessed 19/12-2021)
+with only small adjustments
+"""
 def weights_init(m):
     classname = m.__class__.__name__
     if classname.find('Conv') != -1:
@@ -38,6 +42,10 @@ def set_seed(manualSeed=999, makeRandom=False):
     random.seed(manualSeed)
     torch.manual_seed(manualSeed)
 
+"""
+Function heavily inspired by https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html (Accessed 19/12-2021)
+with only small adjustments
+"""
 def create_classifier():
     # Create the Discriminator
     classifier = Classifier(ngpu).to(device)
